@@ -1,4 +1,5 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal AS base
+FROM image-registry.openshift-image-registry.svc:5000/openshift/dotnet-runtime:latest as base
+# FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal AS base
 # WORKDIR /app
 # EXPOSE 5000
 
@@ -9,7 +10,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal AS base
 # RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 # USER appuser
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
+FROM image-registry.openshift-image-registry.svc:5000/openshift/dotnet:latest as build
+# FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
 WORKDIR /src
 COPY ["weather.csproj", "./"]
 RUN dotnet restore "weather.csproj"
